@@ -1,5 +1,7 @@
 name := "kuromoji4j"
 
+organization := "net.jxpress"
+
 version := "0.0.1"
 
 scalaVersion := "2.11.7"
