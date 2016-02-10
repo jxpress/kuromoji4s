@@ -11,9 +11,17 @@ kuromoji4s is a wrapper library of kuromoji (http://www.atilika.org/) for scala
 ## Build
 
 ```shell
-% gti clone https://github.com/jxpress/kuromoji4s.git
+% git clone https://github.com/jxpress/kuromoji4s.git
 % cd kuromoji4s
 % sbt compile
+```
+
+Or, add the following statements to your build.sbt 
+
+```build.sbt
+lazy val root = project.in(file(".")).dependsOn(kuromoji4s)
+
+lazy val kuromoji4s = uri("https://github.com/jxpress/kuromoji4s.git#master")
 ```
 
 ## Limitation
