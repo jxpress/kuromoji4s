@@ -1,4 +1,4 @@
-name := "kuromoji4j"
+name := "kuromoji4s"
 
 organization := "net.jxpress"
 
