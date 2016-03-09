@@ -76,5 +76,14 @@ case class Token(
                   baseForm : Option[String],
                   reading: Option[String],
                   pronunciation: Option[String]
-                ) extends net.jxpress.kuromoji4s.Token[DictionaryType.IPA]
+                ) extends net.jxpress.kuromoji4s.Token[DictionaryType.IPA] {
+
+  override def normalize: String = baseForm match {
+    case Some(bf) => bf
+    case _ => surface
+  }
+
+
+
+}
 

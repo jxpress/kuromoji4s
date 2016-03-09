@@ -26,6 +26,14 @@ object Sample {
     |オンラインでも引き続き発生してきたあらゆる労働・金銭・時間コストを下げ、収益を最大化すること。そして、これをテクノロジーで実現することが、良質なジャーナリズムを存続させるための必要条件です。
     |学術分野で研究され続けながら十分活用されずに来た様々な要素技術を、ニュースメディア運営に携わる全ての方にとって使いやすいソリューションに進化させる。そして、最新テクノロジーとそのメディアビジネスへの活用の間にある「ミッシングリンク」を埋めていく。それが、NewsTechベンチャーである私たちJX通信社の仕事です。""".stripMargin.split("\n")
 
+
+  def vectorizerSample() : Unit = {
+    import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits._
+
+    println("明日は明日の風邪がふく" cos "明日は明日の風がふく")
+
+  }
+
   def main(args: Array[String]) : Unit = {
 
     import Tokenizer.IPADIC
@@ -52,5 +60,9 @@ object Sample {
           .foreach { println }
 
     }
+
+    println("-- A sample of the vectorizer")
+
+    vectorizerSample()
   }
 }

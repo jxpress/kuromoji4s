@@ -1,9 +1,11 @@
 package net.jxpress.kuromoji4s.ipadic
 
-import org.scalatest.FlatSpec
+import org.scalatest.{Matchers, FreeSpec}
 import scala.collection.JavaConversions._
 
-class TokenizerSpec extends FlatSpec {
+class TokenizerSpec extends FreeSpec
+with Matchers
+{
   val testcase =
     """メロスは激怒した。
       |必ず、かの邪智暴虐じゃちぼうぎゃくの王を除かなければならぬと決意した。
@@ -37,44 +39,45 @@ class TokenizerSpec extends FlatSpec {
     case _ => "*"
   }
 
-  def assertEquals(token1: Token, token2: TOKEN) : Unit = {
-    assert(token1.surface == token2.getSurface)
-    assert(token1.isKnown == token2.isKnown)
-    assert(token1.isUser == token2.isUser)
-    assert(token1.position == token2.getPosition)
-    assert(toString(token1.pos1) == token2.getPartOfSpeechLevel1)
-    assert(toString(token1.pos2) == token2.getPartOfSpeechLevel2)
-    assert(toString(token1.pos3) == token2.getPartOfSpeechLevel3)
-    assert(toString(token1.pos4) == token2.getPartOfSpeechLevel4)
-    assert(toString(token1.conjugationForm) == token2.getConjugationForm)
-    assert(toString(token1.conjugationType) == token2.getConjugationType)
-    assert(toString(token1.baseForm) == token2.getBaseForm)
-    assert(toString(token1.reading) == token2.getReading)
-    assert(toString(token1.pronunciation) == token2.getPronunciation)
+  def sameToken(token1: Token, token2: TOKEN) : Boolean = {
+
+    token1.surface should be (token2.getSurface)
+    token1.isKnown should be (token2.isKnown)
+    token1.isUser should be (token2.isUser)
+
+    token1.position should be (token2.getPosition)
+    toString(token1.pos1) should be (token2.getPartOfSpeechLevel1)
+
+    toString(token1.pos2) should be (token2.getPartOfSpeechLevel2)
+    toString(token1.pos3) should be (token2.getPartOfSpeechLevel3)
+    toString(token1.pos4) should be (token2.getPartOfSpeechLevel4)
+    toString(token1.conjugationForm) should be (token2.getConjugationForm)
+    toString(token1.conjugationType) should be (token2.getConjugationType)
+    toString(token1.baseForm) should be (token2.getBaseForm)
+    toString(token1.reading) should be (token2.getReading)
+    toString(token1.pronunciation) should be (token2.getPronunciation)
+
+    true
   }
 
-  "Kuromoji4s.Tokenizer" should "return same results to the original Kuromoji Tokenizer" in {
+  "Kuromoji4s.Tokenizer should return same results to the original Kuromoji Tokenizer" in {
     import net.jxpress.kuromoji4s.Tokenizer._
 
     val tokenizer = net.jxpress.kuromoji4s.Tokenizer()
 
-    val num = testcase.map {
+    testcase.foreach {
       sentence =>
 
         val actual = tokenizer(sentence)
         val expect = TOKENIZER.tokenize(sentence)
 
-        assert(actual.size == expect.size)
-        actual.indices.foreach {
-          i =>
-            assertEquals(actual(i), expect(i))
+        actual.size should be (expect.size)
+
+        actual.zip(expect).foreach {
+          case (t1, t2) =>
+            sameToken(t1, t2) should be (true)
         }
-
-        expect.size
-    }.sum
-
-    assert(num > testcase.size)
-
+    }
   }
 
 }
