@@ -1,6 +1,8 @@
 package net.jxpress.kuromoji4s.ipadic
 
-import org.scalatest.{Matchers, FreeSpec}
+import net.jxpress.kuromoji4s.DictionaryType.IPA.Neologd
+import org.scalatest.{FreeSpec, Matchers}
+
 import scala.collection.JavaConversions._
 
 class TokenizerSpec extends FreeSpec
@@ -60,10 +62,21 @@ with Matchers
     true
   }
 
-  "Kuromoji4s.Tokenizer should return same results to the original Kuromoji Tokenizer" in {
-    import net.jxpress.kuromoji4s.Tokenizer._
+  def similarToken(token1: Token, token2: TOKEN) : Boolean = {
 
-    val tokenizer = net.jxpress.kuromoji4s.Tokenizer()
+    token1.surface should be (token2.getSurface)
+
+    token1.position should be (token2.getPosition)
+    toString(token1.pos1) should be (token2.getPartOfSpeechLevel1)
+    toString(token1.pos2) should be (token2.getPartOfSpeechLevel2)
+    toString(token1.baseForm) should be (token2.getBaseForm)
+
+    true
+  }
+
+  "Kuromoji4s.Tokenizer should return same results to the original Kuromoji Tokenizer" in {
+
+    val tokenizer = Tokenizer()
 
     testcase.foreach {
       sentence =>
@@ -77,6 +90,40 @@ with Matchers
           case (t1, t2) =>
             sameToken(t1, t2) should be (true)
         }
+    }
+  }
+
+  "The results of kuromoji4s.ipadic.neologd.tokenizer should be similar to the original kuromoji tokenizer ones" in {
+
+    val tokenizer = Tokenizer(Neologd)
+
+    List(
+      "けれども邪悪に対しては、人一倍に敏感であった。",
+      "ありがとう、さようなら。"
+    ).foreach {
+      sentence =>
+        val actual = tokenizer(sentence)
+        val expect = TOKENIZER.tokenize(sentence)
+        actual.size should be (expect.size)
+        actual.zip(expect).foreach {
+          case (t1, t2) =>
+            similarToken(t1, t2) should be (true)
+        }
+    }
+  }
+
+  "The results of kuromoji4s.ipadic.neologd.tokenizer should be different from the original kuromoji tokenizer ones for new words" in {
+
+    val tokenizer = Tokenizer(Neologd)
+
+    List(
+      "きゃりーぱみゅぱみゅ"
+    ).foreach {
+      sentence =>
+        val actual = tokenizer(sentence)
+        val expect = TOKENIZER.tokenize(sentence)
+        actual.size should not be expect.size
+
     }
   }
 

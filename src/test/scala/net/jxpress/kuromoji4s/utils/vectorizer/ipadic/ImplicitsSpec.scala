@@ -7,13 +7,17 @@ import org.scalatest.{FreeSpec, Matchers}
 class ImplicitsSpec extends FreeSpec with Matchers {
 
   "bagOfWords" - {
-    import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits.defaultTokenizer
-    import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits.bagOfWords
+    import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits.default.Tokenizer
+
 
     "bagOfwords(sentence) should return a map that maps a word to the frequency in the sentence." - {
+      import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits.bagOfWords
 
       "No stop words" in {
         implicit val filter: Token[_] => Boolean = { token => true }
+
+
+
 
         val bows = bagOfWords("私は今日山に登るつもり山")
 

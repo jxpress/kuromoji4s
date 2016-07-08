@@ -1,15 +1,16 @@
 package net.jxpress.kuromoji4s
 
-/** The type of dictionaries
-  *
-  */
+
 trait DictionaryType
 
 
 object DictionaryType {
 
-  /** The type of IPA dictionary
-    *
-    */
   trait IPA extends DictionaryType
+
+  object IPA {
+    case object Default extends IPA
+    case object Neologd extends IPA
+  }
+
 }

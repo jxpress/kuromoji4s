@@ -3,46 +3,6 @@ package net.jxpress.kuromoji4s.ipadic
 import net.jxpress.kuromoji4s.DictionaryType
 import language.implicitConversions
 
-object Token {
-
-
-  /** Converts the given string feature of kuromoji tokens into Option[String]
-    *
-    * Returns None if the feature is '*' stands for Null in kuromoji,
-    * otherwise Option(feature)
-    *
-    * @param feature feature in a kuromoji token
-    */
-  implicit def featureToStrOpt(feature: String): Option[String] = {
-    Option(feature) match {
-      case Some("*") | None => None
-      case o: Some[String] => o
-    }
-  }
-
-  /** Converts the given kuromoji token into our token instance
-    *
-    * @param token kuromoji token
-    */
-  implicit def toToken(token: com.atilika.kuromoji.ipadic.Token) : Token = {
-    Token(
-      surface = token.getSurface,
-      isKnown = token.isKnown,
-      isUser = token.isUser,
-      position = token.getPosition,
-      pos1 = token.getPartOfSpeechLevel1,
-      pos2 = token.getPartOfSpeechLevel2,
-      pos3 = token.getPartOfSpeechLevel3,
-      pos4 = token.getPartOfSpeechLevel4,
-      conjugationForm = token.getConjugationForm,
-      conjugationType = token.getConjugationType,
-      baseForm = token.getBaseForm,
-      reading = token.getReading,
-      pronunciation = token.getPronunciation
-    )
-  }
-}
-
 /** A case class for tokens for IPA dictionary
   *
   * A main difference from kuromoji's token is '*' features ('*' feature means null)
@@ -82,8 +42,6 @@ case class Token(
     case Some(bf) => bf
     case _ => surface
   }
-
-
 
 }
 

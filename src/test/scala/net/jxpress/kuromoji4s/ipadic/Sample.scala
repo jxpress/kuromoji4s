@@ -1,8 +1,5 @@
 package net.jxpress.kuromoji4s.ipadic
 
-import net.jxpress.kuromoji4s._
-
-
 object Sample {
 
   val stopWords : Token => Boolean = {
@@ -29,14 +26,13 @@ object Sample {
 
   def vectorizerSample() : Unit = {
     import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits._
+    import net.jxpress.kuromoji4s.utils.vectorizer.ipadic.Implicits.default._
 
     println("明日は明日の風邪がふく" cos "明日は明日の風がふく")
 
   }
 
   def main(args: Array[String]) : Unit = {
-
-    import Tokenizer.IPADIC
 
     val tokenizer = Tokenizer()
 

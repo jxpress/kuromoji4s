@@ -25,5 +25,4 @@ object StopWords {
         }
       case _ => false
   }
-
 }

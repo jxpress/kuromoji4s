@@ -3,10 +3,13 @@ package net.jxpress.kuromoji4s.utils.vectorizer.ipadic
 import net.jxpress.kuromoji4s.ipadic.Tokenizer
 import net.jxpress.kuromoji4s.Token
 
-
 object Implicits {
-  implicit val defaultTokenizer : Tokenizer = new Tokenizer()
-  implicit val defaultStoWords = net.jxpress.kuromoji4s.ipadic.StopWords.Default
+
+  object default {
+    implicit lazy val Tokenizer : Tokenizer = net.jxpress.kuromoji4s.ipadic.Tokenizer()
+    implicit lazy val StoWords = net.jxpress.kuromoji4s.ipadic.StopWords.Default
+  }
+
   implicit def bagOfWords(sentence: String)(implicit tokenizer: Tokenizer, stopWords : Token[_] => Boolean) : Map[String, Double] = {
     tokenizer(sentence)
       .filter{ stopWords }
@@ -15,7 +18,9 @@ object Implicits {
       .map { case (w, v) => w -> v.map{ _._2 }.sum.toDouble }
   }
 
-  implicit val string2wordVector: String => WordVector = { bagOfWords(_) }
+  implicit def string2wordVector(str: String)(implicit tokenizer: Tokenizer, stopWords : Token[_] => Boolean):  WordVector = {
+    bagOfWords(str)
+  }
 
 
   implicit class WordVector(val x: Map[String, Double]) extends AnyVal {
