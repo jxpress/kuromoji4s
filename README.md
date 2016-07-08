@@ -4,26 +4,19 @@ kuromoji4s is a wrapper library of kuromoji (http://www.atilika.org/) for scala
 
 ## Requirement
 
-* JDK7
+* Java 7 or later
 * scala 2.11.7 or later
 * sbt 0.13.8 or later
 
-## Build
-
-```shell
-% git clone https://github.com/jxpress/kuromoji4s.git
-% cd kuromoji4s
-% sbt compile
-```
-
-Or, add the following statements to your build.sbt 
+## Library Dependencies
 
 ```build.sbt
-libraryDependencies += "net.jxpress" % "kuromoji4s_2.11" % "0.0.6"
+resolvers += "Maven Repository on Github" at "https://jxpress.github.io/mvnrepos/"
 
+libraryDependencies += "net.jxpress" % "kuromoji4s_2.11" % "0.0.6"
 ```
 
-## Limitation
+### Limitation
 
 **Only kuromoji-ipadic is supported in the current version (0.0.6)**
 
@@ -33,7 +26,7 @@ if you want to use [neologd](https://github.com/neologd/mecab-ipadic-neologd) di
 libraryDependencies += "net.jxpress" % "kuromoji-neologd-dic_2.11" % "0.9.0"  from "https://github.com/jxpress/kuromoji-neologd-dic/releases/download/0.9.0/kuromoji-neologd-dic_2.11-0.0.9.jar"
 ```
 
-the detail for kuomoji-neologd-dic is [here](https://github.com/jxpress/kuromoji-neologd-dic) 
+The detail for kuomoji-neologd-dic is [here](https://github.com/jxpress/kuromoji-neologd-dic) 
 
 ## Sample code 
 

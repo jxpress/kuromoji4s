@@ -6,7 +6,7 @@ version := "0.0.6"
 
 scalaVersion := "2.11.7"
 
-resolvers += "Maven Repository on Github" at "http://jxpress.github.io/mvnrepos/"
+resolvers += "Maven Repository on Github" at "https://jxpress.github.io/mvnrepos/"
 
 libraryDependencies ++= Seq(
   "com.typesafe" % "config" % "1.2.1",
