@@ -4,8 +4,8 @@ kuromoji4s is a wrapper library of kuromoji (http://www.atilika.org/) for scala
 
 ## Requirements
 
-* Java 7 or later
-* scala 2.11.7 or later
+* Java 8 or later
+* scala 2.12.1 or later
 * sbt 0.13.8 or later
 
 ## Library Dependencies
@@ -13,12 +13,12 @@ kuromoji4s is a wrapper library of kuromoji (http://www.atilika.org/) for scala
 ```build.sbt
 resolvers += "Maven Repository on Github" at "https://jxpress.github.io/mvnrepos/"
 
-libraryDependencies += "net.jxpress" % "kuromoji4s_2.11" % "0.0.6"
+libraryDependencies += "net.jxpress" % "kuromoji4s_2.12" % "0.0.7"
 ```
 
 ### Limitations
 
-**Only kuromoji-ipadic is supported in the current version (0.0.6)**
+**Only kuromoji-ipadic is supported in the current version (0.0.7)**
 
 if you want to use [neologd](https://github.com/neologd/mecab-ipadic-neologd) dictionary, you need to be the following additional dependency: 
 

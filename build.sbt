@@ -2,7 +2,7 @@ name := "kuromoji4s"
 
 organization := "net.jxpress"
 
-version := "0.7.0"
+version := "0.0.7"
 
 scalaVersion := "2.12.1"
 
